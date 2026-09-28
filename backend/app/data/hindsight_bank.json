@@ -1,0 +1,223 @@
+[
+  {
+    "id": "mem-1024-dbpool",
+    "bank_id": "opsmind-incidents",
+    "incident_number": "INC-1024",
+    "incident_title": "Payment API returning 500 errors",
+    "service": "payment-api",
+    "environment": "production",
+    "symptoms": [
+      "HTTP 500",
+      "database timeout",
+      "high connection count"
+    ],
+    "error_type": "HTTP 500",
+    "root_cause": "Database connection pool exhaustion",
+    "action_taken": "Increased database connection pool from 20 to 50",
+    "result": "SUCCESS",
+    "resolution_time_minutes": 12,
+    "timestamp": "2026-09-28T10:10:42.785770",
+    "confidence": 0.94,
+    "context_config": {
+      "db_pool_size": 20,
+      "max_connections": 20
+    },
+    "tags": [
+      "payment-api",
+      "postgres",
+      "pool-exhaustion",
+      "success"
+    ]
+  },
+  {
+    "id": "mem-1018-auth-ntp",
+    "bank_id": "opsmind-incidents",
+    "incident_number": "INC-1018",
+    "incident_title": "Authentication Service high latency & token rejection",
+    "service": "auth-service",
+    "environment": "production",
+    "symptoms": [
+      "401 Unauthorized",
+      "JWT validation timeout",
+      "high latency"
+    ],
+    "error_type": "HTTP 401",
+    "root_cause": "Clock skew between auth nodes and Redis session store",
+    "action_taken": "Synchronized chrony NTP daemon and set token skew tolerance to 60s",
+    "result": "SUCCESS",
+    "resolution_time_minutes": 18,
+    "timestamp": "2026-09-28T10:10:42.785770",
+    "confidence": 0.92,
+    "context_config": {
+      "clock_tolerance_sec": 0
+    },
+    "tags": [
+      "auth-service",
+      "jwt",
+      "ntp",
+      "success"
+    ]
+  },
+  {
+    "id": "mem-1012-notif-restart-fail",
+    "bank_id": "opsmind-incidents",
+    "incident_number": "INC-1012",
+    "incident_title": "Notification Service queue backlog spike",
+    "service": "notification-service",
+    "environment": "production",
+    "symptoms": [
+      "Kafka consumer lag > 50,000",
+      "Worker CPU 100%"
+    ],
+    "error_type": "QueueBacklog",
+    "root_cause": "Corrupted poison-pill message in payment notification topic",
+    "action_taken": "Restarted notification-service pods",
+    "result": "FAILED",
+    "resolution_time_minutes": 35,
+    "timestamp": "2026-09-28T10:10:42.785770",
+    "confidence": 0.89,
+    "context_config": {
+      "consumer_threads": 4
+    },
+    "tags": [
+      "notification-service",
+      "kafka",
+      "restart-failed",
+      "failed"
+    ]
+  },
+  {
+    "id": "mem-1013-notif-dlq-success",
+    "bank_id": "opsmind-incidents",
+    "incident_number": "INC-1013",
+    "incident_title": "Notification Service queue unblocked",
+    "service": "notification-service",
+    "environment": "production",
+    "symptoms": [
+      "Kafka consumer lag > 50,000",
+      "Worker crashloop"
+    ],
+    "error_type": "QueueBacklog",
+    "root_cause": "Poison pill payload deserialization crash",
+    "action_taken": "Rerouted poison pill to Dead-Letter-Queue (DLQ) and updated deserializer schema",
+    "result": "SUCCESS",
+    "resolution_time_minutes": 14,
+    "timestamp": "2026-09-28T10:10:42.785770",
+    "confidence": 0.96,
+    "context_config": {
+      "dlq_enabled": false
+    },
+    "tags": [
+      "notification-service",
+      "kafka",
+      "dlq",
+      "success"
+    ]
+  },
+  {
+    "id": "mem-1008-order-redis",
+    "bank_id": "opsmind-incidents",
+    "incident_number": "INC-1008",
+    "incident_title": "Order Service Redis connection drops",
+    "service": "order-service",
+    "environment": "production",
+    "symptoms": [
+      "RedisConnectionError",
+      "Cart checkout timeout"
+    ],
+    "error_type": "RedisConnectionError",
+    "root_cause": "Redis client connection leak on unhandled checkout exceptions",
+    "action_taken": "Added try-finally client connection release and enabled connection pooling in redis-py",
+    "result": "SUCCESS",
+    "resolution_time_minutes": 22,
+    "timestamp": "2026-09-28T10:10:42.785770",
+    "confidence": 0.91,
+    "context_config": {
+      "redis_pool": false
+    },
+    "tags": [
+      "order-service",
+      "redis",
+      "leak",
+      "success"
+    ]
+  },
+  {
+    "id": "test-mem-001",
+    "bank_id": "opsmind-incidents",
+    "incident_number": "INC-TEST-01",
+    "incident_title": "Test Payment DB pool exhaustion",
+    "service": "payment-api",
+    "environment": "production",
+    "symptoms": [
+      "HTTP 500",
+      "database timeout"
+    ],
+    "error_type": "HTTP 500",
+    "root_cause": "Test pool exhaustion",
+    "action_taken": "Increased pool from 20 to 50",
+    "result": "SUCCESS",
+    "resolution_time_minutes": 10,
+    "timestamp": "2026-09-28T10:11:16.527511",
+    "confidence": 0.95,
+    "context_config": {
+      "db_pool_size": 20
+    },
+    "tags": [
+      "payment-api",
+      "success"
+    ]
+  },
+  {
+    "id": "mem-hist-1024",
+    "bank_id": "opsmind-incidents",
+    "incident_number": "INC-1024",
+    "incident_title": "Payment API returning 500",
+    "service": "payment-api",
+    "environment": "production",
+    "symptoms": [
+      "database timeout",
+      "high connection pool usage"
+    ],
+    "error_type": "HTTP 500",
+    "root_cause": "Database connection pool exhaustion",
+    "action_taken": "Increased database connection pool from 20 to 50",
+    "result": "SUCCESS",
+    "resolution_time_minutes": 12,
+    "timestamp": "2026-09-28T10:12:22.611985",
+    "confidence": 0.95,
+    "context_config": {
+      "db_pool_size": 20
+    },
+    "tags": [
+      "payment-api",
+      "success"
+    ]
+  },
+  {
+    "id": "mem-20260928140753-inc-current-test",
+    "bank_id": "opsmind-incidents",
+    "incident_number": "INC-CURRENT-TEST",
+    "incident_title": "Payment API returning 500 errors",
+    "service": "payment-api",
+    "environment": "production",
+    "symptoms": [
+      "HTTP 500 internal server errors",
+      "High database connection usage"
+    ],
+    "error_type": "HTTP 500",
+    "root_cause": "Unindexed database query caused high CPU usage and slow transaction processing, resulting in API timeouts.",
+    "action_taken": "Added the required database index on the frequently queried columns, optimized the slow query, and restarted the affected application workers.",
+    "result": "SUCCESS",
+    "resolution_time_minutes": 15,
+    "timestamp": "2026-09-28T14:07:53.051104",
+    "confidence": 0.95,
+    "context_config": {
+      "db_pool_size": 50
+    },
+    "tags": [
+      "payment-api",
+      "success"
+    ]
+  }
+]

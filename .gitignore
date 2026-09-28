@@ -1,0 +1,46 @@
+# ==============================================================
+# OPSMIND — Root .gitignore
+# ==============================================================
+
+# ===== SECRETS — NEVER COMMIT =====
+**/.env
+**/.env.local
+**/.env.production
+**/.env.*.local
+**/secrets.json
+
+# ===== Python Backend =====
+backend/__pycache__/
+backend/**/__pycache__/
+backend/**/*.py[cod]
+backend/.venv/
+backend/venv/
+backend/*.egg-info/
+backend/dist/
+backend/build/
+backend/.pytest_cache/
+backend/htmlcov/
+backend/.coverage
+backend/opsmind.db          # SQLite dev database
+backend/hindsight_bank.json # Local memory bank (dev-only)
+backend/logs/
+
+# ===== Node / Frontend =====
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/coverage/
+
+# ===== IDEs & OS =====
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== Misc =====
+*.log
+*.tmp
+*.bak
