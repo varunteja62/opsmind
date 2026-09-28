@@ -21,7 +21,8 @@ backend/build/
 backend/.pytest_cache/
 backend/htmlcov/
 backend/.coverage
-backend/opsmind.db          # SQLite dev database
+backend/opsmind.db          # SQLite dev database — DO NOT commit
+backend/*.db
 backend/hindsight_bank.json # Local memory bank (dev-only)
 backend/logs/
 
